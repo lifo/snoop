@@ -16,12 +16,12 @@ class ChatAction < Cramp::Websocket
     @user = message[:user]
 
     config = { 
-    	:server => "irc.freenode.net",
-    	:port => 6667,
-    	:nickname => @user,
-    	:realname => @user,
-    	:username => @user,
-    	:channels => ["#cramp"]
+      :server => "irc.freenode.net",
+      :port => 6667,
+      :nickname => @user,
+      :realname => @user,
+      :username => @user,
+      :channels => ["#cramp"]
     }
 
     message_handler = Proc.new {|event| render encode_json(:message => event.message, :user => event.from, :action => 'message') }
