@@ -27,7 +27,7 @@ class ChatAction < Cramp::Websocket
     message_handler = Proc.new {|event| render encode_json(:message => event.message, :user => event.from, :action => 'message') }
     config[:handlers] = {'privmsg' => message_handler}
 
-    @irc = EM.connect(config[:server], config[:port], IRC::Connection, :config => config)
+    Thread.new { @irc = EM.connect(config[:server], config[:port], IRC::Connection, :config => config) }.join
   end
 
   def handle_leave
